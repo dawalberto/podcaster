@@ -16,7 +16,7 @@ export const SearchInput = ({ onSearch }: { onSearch: (searchingTerm: string) =>
 		<input
 			type='text'
 			placeholder='Filter podcasts...'
-			className='w-3/5 rounded-md border border-gray-300 px-2 py-1 md:min-w-64 md:max-w-72'
+			className='w-full rounded-md border border-gray-300 px-2 py-1 md:min-w-64 md:max-w-72'
 			value={searchTerm}
 			onChange={handleInputChange}
 		/>
