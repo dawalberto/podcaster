@@ -1,0 +1,72 @@
+import { useEffect, useState } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
+import {
+	BASE_URL,
+	hasMoreTimePassedSinceThisDate,
+	PODCAST_LIST_LOCAL_STORAGE_KEY,
+	PODCAST_LIST_URL,
+	PodcastEntry,
+	PodcastListLocalStorage,
+	PodcastListResponse,
+} from '../shared'
+import { podcastListResponseMock } from '../tmp/mock'
+
+export const useFetchPodcastList = () => {
+	const [podcastListValueInLocaleStorage, setPodcastListValueInLocaleStorage] =
+		useLocalStorage<PodcastListLocalStorage | null>(PODCAST_LIST_LOCAL_STORAGE_KEY, null)
+	const [data, setData] = useState<PodcastEntry[] | null>(null)
+	const [isLoading, setIsLoading] = useState(true)
+	const [error, setError] = useState(null)
+
+	useEffect(() => {
+		let shouldRefetch = false
+		if (podcastListValueInLocaleStorage) {
+			shouldRefetch = hasMoreTimePassedSinceThisDate({
+				date: podcastListValueInLocaleStorage.lastFetch,
+				converter: 'minutes',
+				passedTime: 5,
+			})
+			if (!shouldRefetch) {
+				setIsLoading(false)
+				setData(podcastListValueInLocaleStorage.podcastList)
+				return
+			}
+		}
+
+		// ! DEVELOP PURPOSE
+		console.log('🦊‼️ Develop mode')
+		setIsLoading(false)
+		setData(podcastListResponseMock.feed.entry)
+		setPodcastListValueInLocaleStorage({
+			lastFetch: new Date().toString(),
+			podcastList: podcastListResponseMock.feed.entry,
+		})
+		return
+
+		fetch(`${BASE_URL}${PODCAST_LIST_URL}`)
+			.then((response) => {
+				if (!response.ok) {
+					throw Error('could not fetch the data for that resource')
+				}
+				return response.json()
+			})
+			.then((data: PodcastListResponse) => {
+				const podcastList = data.feed.entry
+				setData(podcastList)
+				setError(null)
+				setPodcastListValueInLocaleStorage({
+					lastFetch: new Date().toString(),
+					podcastList,
+				})
+			})
+			.catch((err) => {
+				console.log('🦊 err', err)
+				setError(err.message)
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}, [])
+
+	return { data, isLoading, error }
+}
