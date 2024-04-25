@@ -1,13 +1,10 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import { Header } from '../components'
 
 export const RootLayout = () => {
 	return (
-		<div>
-			<ul>
-				<li>
-					<Link to='/'>Home</Link>
-				</li>
-			</ul>
+		<div className='mx-auto max-w-screen-lg px-2'>
+			<Header />
 			<Outlet />
 		</div>
 	)
