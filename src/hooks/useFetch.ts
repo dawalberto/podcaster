@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BASE_URL } from '../shared/constants'
+import { BASE_URL } from '../shared'
 
 export const useFetch = <T>(url: string) => {
 	const [data, setData] = useState<T | null>(null)
