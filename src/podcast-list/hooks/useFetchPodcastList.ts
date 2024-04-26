@@ -5,9 +5,10 @@ import {
 	hasMoreTimePassedSinceThisDate,
 	PODCAST_LIST_LOCAL_STORAGE_KEY,
 	PODCAST_LIST_URL,
-} from '../shared'
-import { PodcastEntry, PodcastListLocalStorage, PodcastListResponse } from '../shared/types'
-import { podcastListResponseMock } from '../tmp/mock'
+	PodcastListLocalStorage,
+} from '../../shared'
+import { podcastListResponseMock } from '../../tmp/mock'
+import { PodcastEntry, PodcastListResponse } from '../types/podcast-list'
 
 export const useFetchPodcastList = () => {
 	const [podcastListValueInLocaleStorage, setPodcastListValueInLocaleStorage] =

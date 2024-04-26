@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { BASE_URL, hasMoreTimePassedSinceThisDate, PODCAST_DETAILS_URL } from '../shared'
+import {
+	BASE_URL,
+	hasMoreTimePassedSinceThisDate,
+	PODCAST_DETAILS_URL,
+	PodcastDetailsLocalStorage,
+} from '../../shared'
 import {
 	PodcastDetails,
 	PodcastDetailsData,
-	PodcastDetailsLocalStorage,
 	PodcastDetailsResponse,
 	PodcastEpisode,
-} from '../shared/types'
+} from '../types/podcast-details'
 import { useDetailsDataInLocalStorage } from './useDetailsDataInLocalStorage'
 import { useGetPodcastDescription } from './useGetPodcastDescription'
 

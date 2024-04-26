@@ -1,3 +1,6 @@
 export * from './api'
+export * from './components/Header'
+export * from './components/SearchInput'
 export * from './constants'
+export * from './types/local-storage'
 export * from './utils'

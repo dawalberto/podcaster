@@ -2,8 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import { RootLayout } from './layouts'
-import { EpisodePage, ErrorPage, PodcastListPage, PodcastPage } from './pages'
+import { PodcastPage } from './podcast-details/pages/PodcastPage'
+import { EpisodePage } from './podcast-episode/pages/EpisodePage'
+import { PodcastListPage } from './podcast-list/pages/PodcastListPage'
+import { RootLayout } from './shared/layouts/RootLayout'
+import { ErrorPage } from './shared/pages/ErrorPage'
 
 const router = createBrowserRouter([
 	{

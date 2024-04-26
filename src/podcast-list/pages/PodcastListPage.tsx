@@ -1,5 +1,6 @@
-import { PodcastCard, SearchInput } from '../components'
-import { usePodcastList } from '../hooks'
+import { SearchInput } from '../../shared'
+import { PodcastCard } from '../components/PodcastCard'
+import { usePodcastList } from '../hooks/usePodcastList'
 
 export const PodcastListPage = () => {
 	const { podcastList, isLoading, error, handleOnSearch } = usePodcastList()

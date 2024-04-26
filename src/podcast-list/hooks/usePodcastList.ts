@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PodcastEntry } from '../shared/types'
+import { PodcastEntry } from '../types/podcast-list'
 import { useFetchPodcastList } from './useFetchPodcastList'
 
 export const usePodcastList = () => {

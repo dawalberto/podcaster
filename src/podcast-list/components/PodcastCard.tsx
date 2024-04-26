@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { PodcastEntry } from '../shared'
+import { PodcastEntry } from '../types/podcast-list'
 
 export const PodcastCard = ({ podcast }: { podcast: PodcastEntry }) => {
 	const id = podcast.id.attributes['im:id']

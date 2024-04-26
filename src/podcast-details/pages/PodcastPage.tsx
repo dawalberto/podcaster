@@ -1,4 +1,4 @@
-import { useFetchPodcastDetails } from '../hooks'
+import { useFetchPodcastDetails } from '../hooks/useFetchPodcastDetails'
 
 export const PodcastPage = () => {
 	const { data, isLoading, error } = useFetchPodcastDetails()
