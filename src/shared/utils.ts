@@ -14,10 +14,10 @@ export const hasMoreTimePassedSinceThisDate = ({
 	const convertedDifference = timeDifference / timeConverter
 
 	if (convertedDifference >= passedTime) {
-		console.log(`More than ${passedTime} ${converter} have passed.`)
+		console.log(`🦊 More than ${passedTime} ${converter} have passed.`)
 		return true
 	} else {
-		console.log(`Less than ${passedTime} ${converter} have passed.`)
+		console.log(`🦊 Less than ${passedTime} ${converter} have passed.`)
 		return false
 	}
 }

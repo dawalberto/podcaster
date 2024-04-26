@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useFetchPodcastList } from '../hooks/useFetchPodcastList'
-import { PodcastEntry } from '../shared'
+import { PodcastEntry } from '../shared/types'
+import { useFetchPodcastList } from './useFetchPodcastList'
 
 export const usePodcastList = () => {
-	const { data: fetchedPodcastList, isLoading, error } = useFetchPodcastList()
+	const { data: podcastList, isLoading, error } = useFetchPodcastList()
 	const [filteredPodcastList, setFilteredPodcastList] = useState<PodcastEntry[] | null>(
-		fetchedPodcastList
+		podcastList
 	)
 
 	useEffect(() => {
-		setFilteredPodcastList(fetchedPodcastList)
-	}, [fetchedPodcastList])
+		setFilteredPodcastList(podcastList)
+	}, [podcastList])
 
 	const handleOnSearch = useCallback(
 		(searchTerm: string) => {
-			if (fetchedPodcastList) {
+			if (podcastList) {
 				setFilteredPodcastList(
-					fetchedPodcastList.filter(
+					podcastList.filter(
 						(podcast) =>
 							podcast['im:name'].label
 								.toLowerCase()
@@ -28,7 +28,7 @@ export const usePodcastList = () => {
 				)
 			}
 		},
-		[fetchedPodcastList]
+		[podcastList]
 	)
 
 	return {

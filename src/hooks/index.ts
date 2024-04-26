@@ -1,2 +1,2 @@
-export * from './useFetch'
+export * from './useFetchPodcastDetails'
 export * from './usePodcastList'

@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import {
-	BASE_RAW_URL,
-	hasMoreTimePassedSinceThisDate,
-	PODCAST_LIST_LOCAL_STORAGE_KEY,
-	PODCAST_LIST_URL,
-	PodcastEntry,
-	PodcastListLocalStorage,
-	PodcastListResponse,
-} from '../shared'
+import { BASE_RAW_URL, hasMoreTimePassedSinceThisDate, PODCAST_LIST_URL } from '../shared'
+import { PodcastEntry, PodcastListLocalStorage, PodcastListResponse } from '../shared/types'
 import { podcastListResponseMock } from '../tmp/mock'
+
+export const PODCAST_LIST_LOCAL_STORAGE_KEY = 'podcastList'
 
 export const useFetchPodcastList = () => {
 	const [podcastListValueInLocaleStorage, setPodcastListValueInLocaleStorage] =
@@ -28,7 +23,7 @@ export const useFetchPodcastList = () => {
 			})
 			if (!shouldRefetch) {
 				setIsLoading(false)
-				setData(podcastListValueInLocaleStorage.podcastList)
+				setData(podcastListValueInLocaleStorage.list)
 				return
 			}
 		}
@@ -39,7 +34,7 @@ export const useFetchPodcastList = () => {
 		setData(podcastListResponseMock.feed.entry)
 		setPodcastListValueInLocaleStorage({
 			lastFetch: new Date().toString(),
-			podcastList: podcastListResponseMock.feed.entry,
+			list: podcastListResponseMock.feed.entry,
 		})
 		return
 
@@ -51,12 +46,12 @@ export const useFetchPodcastList = () => {
 				return response.json()
 			})
 			.then((data: PodcastListResponse) => {
-				const podcastList = data.feed.entry
-				setData(podcastList)
+				const list = data.feed.entry
+				setData(list)
 				setError(null)
 				setPodcastListValueInLocaleStorage({
 					lastFetch: new Date().toString(),
-					podcastList,
+					list,
 				})
 			})
 			.catch((err) => {
