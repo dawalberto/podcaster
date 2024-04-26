@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import {
-	BASE_URL,
+	BASE_RAW_URL,
 	hasMoreTimePassedSinceThisDate,
 	PODCAST_LIST_LOCAL_STORAGE_KEY,
 	PODCAST_LIST_URL,
@@ -43,7 +43,7 @@ export const useFetchPodcastList = () => {
 		})
 		return
 
-		fetch(`${BASE_URL}${PODCAST_LIST_URL}`)
+		fetch(`${BASE_RAW_URL}${PODCAST_LIST_URL}`)
 			.then((response) => {
 				if (!response.ok) {
 					throw Error('could not fetch the data for that resource')
