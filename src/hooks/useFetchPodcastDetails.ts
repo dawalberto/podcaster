@@ -1,42 +1,41 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useLocalStorage } from 'usehooks-ts'
 import { BASE_URL, hasMoreTimePassedSinceThisDate, PODCAST_DETAILS_URL } from '../shared'
 import {
 	PodcastDetails,
 	PodcastDetailsData,
 	PodcastDetailsLocalStorage,
-	PodcastDetailsLocalStorageKey,
 	PodcastDetailsResponse,
 	PodcastEpisode,
 } from '../shared/types'
+import { useDetailsDataInLocalStorage } from './useDetailsDataInLocalStorage'
+import { useGetPodcastDescription } from './useGetPodcastDescription'
 
 export const useFetchPodcastDetails = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()
 	const podcastToFetchUrl = encodeURIComponent(
 		`${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=2`
 	)
-	const id = Number(podcastId)
-	const localStorageDetailsKey: PodcastDetailsLocalStorageKey<typeof id> = `podcast${id}Details`
-	const [dataInLocaleStorage, setDataInLocaleStorage] =
-		useLocalStorage<PodcastDetailsLocalStorage | null>(localStorageDetailsKey, null)
+	const { data: dataInLS, setData: setDataInLS } = useDetailsDataInLocalStorage()
 	const [data, setData] = useState<Omit<PodcastDetailsLocalStorage, 'lastFetch'> | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState(null)
 
+	const podcastDescription = useGetPodcastDescription()
+
 	useEffect(() => {
 		let shouldRefetch = false
-		if (dataInLocaleStorage) {
+		if (dataInLS) {
 			shouldRefetch = hasMoreTimePassedSinceThisDate({
-				date: dataInLocaleStorage.lastFetch,
+				date: dataInLS.lastFetch,
 				converter: 'minutes',
-				passedTime: 5,
+				passedTime: 30,
 			})
 			if (!shouldRefetch) {
 				setIsLoading(false)
 				setData({
-					details: dataInLocaleStorage.details,
-					episodes: dataInLocaleStorage.episodes,
+					details: dataInLS.details,
+					episodes: dataInLS.episodes,
 				})
 				return
 			}
@@ -61,13 +60,13 @@ export const useFetchPodcastDetails = () => {
 				) as PodcastEpisode[]
 
 				setData({
-					details: podcastDetails,
+					details: { description: podcastDescription, ...podcastDetails },
 					episodes: podcastEpisodes,
 				})
 				setError(null)
-				setDataInLocaleStorage({
+				setDataInLS({
 					lastFetch: new Date().toString(),
-					details: podcastDetails,
+					details: { description: podcastDescription, ...podcastDetails },
 					episodes: podcastEpisodes,
 				})
 			})

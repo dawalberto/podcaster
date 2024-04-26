@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { BASE_RAW_URL, hasMoreTimePassedSinceThisDate, PODCAST_LIST_URL } from '../shared'
+import {
+	BASE_RAW_URL,
+	hasMoreTimePassedSinceThisDate,
+	PODCAST_LIST_LOCAL_STORAGE_KEY,
+	PODCAST_LIST_URL,
+} from '../shared'
 import { PodcastEntry, PodcastListLocalStorage, PodcastListResponse } from '../shared/types'
 import { podcastListResponseMock } from '../tmp/mock'
-
-export const PODCAST_LIST_LOCAL_STORAGE_KEY = 'podcastList'
 
 export const useFetchPodcastList = () => {
 	const [podcastListValueInLocaleStorage, setPodcastListValueInLocaleStorage] =

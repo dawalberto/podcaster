@@ -16,6 +16,7 @@ export type PodcastDetailsData = {
 
 export type PodcastDetails = {
 	wrapperType: 'track'
+	description?: string
 	kind: string
 	artistId: number
 	collectionId: number
