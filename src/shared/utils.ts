@@ -48,3 +48,25 @@ export const formatTrackTime = (trackTimeMillis: number): string => {
 const padZero = (num: number): string => {
 	return num < 10 ? `0${num}` : `${num}`
 }
+
+export function transformToHtml(input: string): string {
+	const paragraphs = input.split('\n')
+	let html = ''
+
+	for (const paragraph of paragraphs) {
+		if (paragraph.trim() === '') {
+			continue
+		}
+
+		const paragraphWithLinks = paragraph.replace(/((https?:\/\/|www\.)\S+)/g, (match) => {
+			if (match.startsWith('www.')) {
+				return `<a href="https://${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
+			}
+			return `<a href="${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
+		})
+
+		html += `<p class="my-2 text-pretty">${paragraphWithLinks}</p>`
+	}
+
+	return html
+}

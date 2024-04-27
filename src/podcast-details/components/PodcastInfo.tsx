@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { PodcastDetails } from '../types/podcast-details'
 
 export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
@@ -7,6 +8,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 		artworkUrl100,
 		artworkUrl600,
 		trackName,
+		trackId,
 		artistName,
 		description,
 	} = details
@@ -17,33 +19,39 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
                     ${artworkUrl600} 600w
                     `
 	return (
-		<div className='flex h-fit w-full flex-col gap-4 rounded-md border border-neutral-200 p-4 text-neutral-800 shadow md:w-1/4'>
+		<div className='flex h-fit w-full flex-none flex-col gap-4 rounded-md border border-neutral-200 p-4 text-neutral-800 shadow md:w-1/4'>
 			{details && (
 				<>
 					<div className='mx-auto w-1/2 md:w-4/5'>
-						<img
-							className='w-full rounded-md'
-							loading='lazy'
-							srcSet={srcSet}
-							sizes='(max-width: 600px) 30px,
+						<Link to={`/podcast/${trackId}`}>
+							<img
+								className='w-full rounded-md hover:scale-105 hover:saturate-150'
+								loading='lazy'
+								srcSet={srcSet}
+								sizes='(max-width: 600px) 30px,
                                     (max-width: 900px) 60px,
                                     (max-width: 1200px) 100px,
                                     600px'
-							src={artworkUrl600}
-							alt='Podcast cover'
-						/>
+								src={artworkUrl600}
+								alt='Podcast cover'
+							/>
+						</Link>
 					</div>
 					<hr className='border-gray-200' />
 					<div>
-						<h1 className='text-base font-semibold'>{trackName}</h1>
-						<h2 className='mt-1 text-sm'>by {artistName}</h2>
+						<h1 className='text-base font-semibold hover:text-sky-700 active:text-sky-600'>
+							<Link to={`/podcast/${trackId}`}>{trackName}</Link>
+						</h1>
+						<h2 className='mt-1 text-sm hover:text-sky-700 active:text-sky-600'>
+							<Link to={`/podcast/${trackId}`}>by {artistName}</Link>
+						</h2>
 					</div>
 					{description && (
 						<>
 							<hr className='border-gray-200' />
 							<div>
 								<span className='text-sm font-semibold'>Description:</span>
-								<p className='mt-1 text-sm italic'>{description}</p>
+								<p className='mt-1 text-pretty text-sm italic'>{description}</p>
 							</div>
 						</>
 					)}

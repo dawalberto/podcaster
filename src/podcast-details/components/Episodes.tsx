@@ -24,11 +24,13 @@ export const Episodes = ({ episodes }: { episodes: PodcastEpisode[] }) => {
 									key={trackId}
 									className={`border-t border-neutral-300 ${index % 2 === 0 && 'bg-neutral-100/95'}`}
 								>
-									<td className='line-clamp-1 px-2 py-2 text-sky-700 hover:text-sky-900 active:text-sky-600 md:line-clamp-none'>
+									<td className='line-clamp-1 px-2 py-3 text-sky-700/80 hover:text-sky-900 active:text-sky-600 md:line-clamp-none'>
 										<Link to={`episode/${trackId}`}>{trackName}</Link>
 									</td>
-									<td className='px-6 py-2'>{formatDate(releaseDate)}</td>
-									<td className='px-2 py-2'>
+									<td className='px-6 py-3 text-neutral-500'>
+										{formatDate(releaseDate)}
+									</td>
+									<td className='px-2 py-3 text-neutral-500'>
 										{formatTrackTime(trackTimeMillis)}
 									</td>
 								</tr>

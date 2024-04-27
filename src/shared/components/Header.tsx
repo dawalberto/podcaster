@@ -5,7 +5,7 @@ export const Header = () => {
 		<header className='sticky top-0 z-20 my-2 bg-white'>
 			<Link
 				to='/'
-				className='text-lg font-semibold text-sky-700 hover:text-sky-900 active:text-sky-600'
+				className='text-xl font-semibold text-sky-700/80 hover:text-sky-900 active:text-sky-600'
 			>
 				Podcaster
 			</Link>
