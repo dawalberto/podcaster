@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useLocalStorage } from 'usehooks-ts'
-import { PODCAST_LIST_LOCAL_STORAGE_KEY } from '../../shared'
-import { PodcastListLocalStorage } from '../../shared/types'
+import { PODCAST_LIST_LOCAL_STORAGE_KEY, PodcastListLocalStorage } from '../../shared'
 
 export const useGetPodcastDescription = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()

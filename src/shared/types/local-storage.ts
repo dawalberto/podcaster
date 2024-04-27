@@ -1,5 +1,5 @@
-import { PodcastDetails, PodcastEpisode } from './podcastDetails'
-import { PodcastEntry } from './podcastList'
+import { PodcastDetails, PodcastEpisode } from '../../podcast-details/types/podcast-details'
+import { PodcastEntry } from '../../podcast-list/types/podcast-list'
 
 export type PodcastListLocalStorage = {
 	lastFetch: string
