@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { PodcastInfo } from '../../podcast-details/components/PodcastInfo'
 import { useFetchPodcastDetails } from '../../podcast-details/hooks/useFetchPodcastDetails'
 import { Episode } from '../components/Episode'
+import { PodcastEpisodeSkeleton } from '../components/EpisodeSkeleton'
 
 export const EpisodePage = () => {
 	const { episodeId } = useParams()
@@ -16,7 +17,7 @@ export const EpisodePage = () => {
 
 	return (
 		<div>
-			{isLoading && <h1>Loading episode details...</h1>}
+			{isLoading && <PodcastEpisodeSkeleton />}
 			{error && <h1>{error}</h1>}
 			<section className='flex flex-col gap-10 md:flex-row'>
 				{details && <PodcastInfo details={details} />}

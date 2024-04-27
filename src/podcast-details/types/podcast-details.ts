@@ -40,7 +40,7 @@ export type PodcastDetails = {
 	collectionExplicitness: string
 	trackExplicitness: string
 	trackCount: number
-	trackTimeMillis: number
+	trackTimeMillis?: number
 	country: string
 	currency: string
 	primaryGenreName: string

@@ -32,6 +32,8 @@ export const formatDate = (inputDate: string): string => {
 }
 
 export const formatTrackTime = (trackTimeMillis: number): string => {
+	if (!trackTimeMillis) return '-'
+
 	const seconds = Math.floor(trackTimeMillis / 1000)
 	const minutes = Math.floor(seconds / 60)
 	const remainingSeconds = seconds % 60

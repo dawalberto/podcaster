@@ -35,9 +35,8 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 								loading='lazy'
 								srcSet={srcSet}
 								sizes='(max-width: 600px) 30px,
-                                    (max-width: 900px) 60px,
-                                    (max-width: 1200px) 100px,
-                                    600px'
+								    (max-width: 900px) 60px,
+								    600px'
 								src={artworkUrl600}
 								alt='Podcast cover'
 							/>
