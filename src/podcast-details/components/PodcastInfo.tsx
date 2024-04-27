@@ -24,7 +24,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 			{details && (
 				<>
 					<div className='mx-auto w-1/2 md:w-4/5'>
-						<Link to={`/podcast/${trackId}`}>
+						<Link to={`/podcaster/podcast/${trackId}`}>
 							<img
 								className={clsx(
 									'w-full rounded-md',
@@ -44,7 +44,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 					</div>
 					<hr className='border-gray-200' />
 					<div>
-						<Link to={`/podcast/${trackId}`}>
+						<Link to={`/podcaster/podcast/${trackId}`}>
 							<h1
 								className={clsx(
 									'text-base font-semibold',
@@ -54,7 +54,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 								{trackName}
 							</h1>
 						</Link>
-						<Link to={`/podcast/${trackId}`}>
+						<Link to={`/podcaster/podcast/${trackId}`}>
 							<h2
 								className={clsx(
 									'mt-1 text-sm',
