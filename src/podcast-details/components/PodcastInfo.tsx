@@ -17,7 +17,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
                     ${artworkUrl600} 600w
                     `
 	return (
-		<div className='flex w-full flex-col gap-3 rounded-md border border-neutral-200 p-4 text-neutral-800 shadow md:w-1/4'>
+		<div className='flex h-fit w-full flex-col gap-4 rounded-md border border-neutral-200 p-4 text-neutral-800 shadow md:w-1/4'>
 			{details && (
 				<>
 					<div className='mx-auto w-1/2 md:w-4/5'>
@@ -33,16 +33,16 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 							alt='Podcast cover'
 						/>
 					</div>
-					<hr className='border-gray-300' />
+					<hr className='border-gray-200' />
 					<div>
 						<h1 className='text-base font-semibold'>{trackName}</h1>
 						<h2 className='mt-1 text-sm'>by {artistName}</h2>
 					</div>
 					{description && (
 						<>
-							<hr className='border-gray-300' />
+							<hr className='border-gray-200' />
 							<div>
-								<span className='text-sm font-semibold'>Description</span>
+								<span className='text-sm font-semibold'>Description:</span>
 								<p className='mt-1 text-sm italic'>{description}</p>
 							</div>
 						</>

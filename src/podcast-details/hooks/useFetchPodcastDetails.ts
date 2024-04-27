@@ -18,7 +18,7 @@ import { useGetPodcastDescription } from './useGetPodcastDescription'
 export const useFetchPodcastDetails = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()
 	const podcastToFetchUrl = encodeURIComponent(
-		`${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=2`
+		`${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=50`
 	)
 	const { data: dataInLS, setData: setDataInLS } = useDetailsDataInLocalStorage()
 	const [data, setData] = useState<Omit<PodcastDetailsLocalStorage, 'lastFetch'> | null>(null)

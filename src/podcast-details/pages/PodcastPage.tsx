@@ -1,3 +1,4 @@
+import { Episodes } from '../components/Episodes'
 import { PodcastInfo } from '../components/PodcastInfo'
 import { useFetchPodcastDetails } from '../hooks/useFetchPodcastDetails'
 
@@ -9,11 +10,10 @@ export const PodcastPage = () => {
 		<div>
 			{isLoading && <h1>Loading details...</h1>}
 			{error && <h1>{error}</h1>}
-			<section className='flex'>
+			<section className='flex flex-col gap-6 md:flex-row'>
 				{details && <PodcastInfo details={details} />}
-				<div className='grow'></div>
+				{episodes && <Episodes episodes={episodes} />}
 			</section>
-			{episodes && <pre>EPISODES: {JSON.stringify(episodes, null, 2)}</pre>}
 		</div>
 	)
 }

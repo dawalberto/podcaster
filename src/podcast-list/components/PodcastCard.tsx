@@ -12,7 +12,7 @@ export const PodcastCard = ({ podcast }: { podcast: PodcastEntry }) => {
 	return (
 		<Link
 			to={`podcast/${id}`}
-			className='group relative flex cursor-pointer items-center justify-start gap-4 rounded-md border border-neutral-200 p-3 shadow drop-shadow hover:shadow-lg md:flex-col md:text-center'
+			className='group relative flex cursor-pointer items-center justify-start gap-4 rounded-md border border-neutral-200 p-3 shadow hover:shadow-lg md:flex-col md:text-center'
 		>
 			<div className='w-20 flex-none md:absolute md:left-1/2 md:top-0 md:size-28 md:-translate-x-1/2 md:-translate-y-1/2 md:group-hover:scale-105'>
 				<img
@@ -25,8 +25,10 @@ export const PodcastCard = ({ podcast }: { podcast: PodcastEntry }) => {
 			</div>
 
 			<div>
-				<h1 className='text font-semibold uppercase text-neutral-700 md:mt-16'>{name}</h1>
-				<h2 className='text-neutral-500'>Author: {author}</h2>
+				<h1 className='text font-semibold uppercase leading-4 text-neutral-800 md:mt-14'>
+					{name}
+				</h1>
+				<h2 className='mt-1 text-neutral-600'>Author: {author}</h2>
 			</div>
 		</Link>
 	)

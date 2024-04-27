@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 * {
-	@apply transition-all duration-300;
+	@apply text-neutral-700 transition-all duration-300;
 }
