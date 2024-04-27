@@ -1,5 +1,6 @@
 import { SearchInput } from '../../shared'
 import { PodcastCard } from '../components/PodcastCard'
+import { PodcastListHelmet } from '../components/PodcastListHelmet'
 import { PodcastListSkeleton } from '../components/PodcastListSkeleton'
 import { usePodcastList } from '../hooks/usePodcastList'
 
@@ -10,6 +11,7 @@ export const PodcastListPage = () => {
 		<div>
 			{isLoading && <PodcastListSkeleton />}
 			{error && <div>{error}</div>} {/* // TODO - Error component */}
+			<PodcastListHelmet />
 			{podcastList && (
 				<>
 					<div className='flex items-center justify-end gap-2'>
