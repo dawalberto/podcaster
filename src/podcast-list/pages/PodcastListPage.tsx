@@ -1,5 +1,6 @@
 import { SearchInput } from '../../shared'
 import { PodcastCard } from '../components/PodcastCard'
+import { PodcastListSkeleton } from '../components/PodcastListSkeleton'
 import { usePodcastList } from '../hooks/usePodcastList'
 
 export const PodcastListPage = () => {
@@ -7,7 +8,7 @@ export const PodcastListPage = () => {
 
 	return (
 		<div>
-			{isLoading && <div>Loading podcasts...</div>} {/* // TODO - skeleton */}
+			{isLoading && <PodcastListSkeleton />}
 			{error && <div>{error}</div>} {/* // TODO - Error component */}
 			{podcastList && (
 				<>
