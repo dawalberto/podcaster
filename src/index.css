@@ -5,3 +5,21 @@
 * {
 	@apply text-neutral-700 transition-all duration-200;
 }
+
+/* SCROLLBAR */
+/* This will affect the scrollbar in Chrome, Safari and Edge. */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	@apply bg-white;
+}
+
+::-webkit-scrollbar-thumb {
+	@apply rounded-sm bg-sky-700;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-sky-600;
+}

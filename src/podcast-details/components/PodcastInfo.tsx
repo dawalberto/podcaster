@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom'
+import clsx from 'clsx'
+import { Link, useParams } from 'react-router-dom'
 import { PodcastDetails } from '../types/podcast-details'
 
 export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
+	const { episodeId } = useParams()
 	const {
 		artworkUrl30,
 		artworkUrl60,
@@ -12,7 +14,6 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 		artistName,
 		description,
 	} = details
-
 	const srcSet = `${artworkUrl30} 30w,
                     ${artworkUrl60} 60w,
                     ${artworkUrl100} 100w,
@@ -25,7 +26,12 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 					<div className='mx-auto w-1/2 md:w-4/5'>
 						<Link to={`/podcast/${trackId}`}>
 							<img
-								className='w-full rounded-md hover:scale-105 hover:saturate-150'
+								className={clsx(
+									'w-full rounded-md',
+									episodeId
+										? 'cursor-pointer hover:-rotate-6 hover:scale-105 hover:saturate-150'
+										: 'cursor-default'
+								)}
 								loading='lazy'
 								srcSet={srcSet}
 								sizes='(max-width: 600px) 30px,
@@ -39,12 +45,26 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 					</div>
 					<hr className='border-gray-200' />
 					<div>
-						<h1 className='text-base font-semibold hover:text-sky-700 active:text-sky-600'>
-							<Link to={`/podcast/${trackId}`}>{trackName}</Link>
-						</h1>
-						<h2 className='mt-1 text-sm hover:text-sky-700 active:text-sky-600'>
-							<Link to={`/podcast/${trackId}`}>by {artistName}</Link>
-						</h2>
+						<Link to={`/podcast/${trackId}`}>
+							<h1
+								className={clsx(
+									'text-base font-semibold',
+									episodeId ? linkStyle : 'cursor-default'
+								)}
+							>
+								{trackName}
+							</h1>
+						</Link>
+						<Link to={`/podcast/${trackId}`}>
+							<h2
+								className={clsx(
+									'mt-1 text-sm',
+									episodeId ? linkStyle : 'cursor-default'
+								)}
+							>
+								by {artistName}
+							</h2>
+						</Link>
 					</div>
 					{description && (
 						<>
@@ -60,3 +80,5 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 		</div>
 	)
 }
+
+const linkStyle = 'hover:text-sky-700 active:text-sky-600'
