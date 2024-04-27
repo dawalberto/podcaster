@@ -18,7 +18,7 @@ import { useGetPodcastDescription } from './useGetPodcastDescription'
 export const useFetchPodcastDetails = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()
 	const podcastToFetchUrl = encodeURIComponent(
-		`${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=50`
+		`${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=300`
 	)
 	const { data: dataInLS, setData: setDataInLS } = useDetailsDataInLocalStorage()
 	const [data, setData] = useState<Omit<PodcastDetailsLocalStorage, 'lastFetch'> | null>(null)
@@ -32,8 +32,8 @@ export const useFetchPodcastDetails = () => {
 		if (dataInLS) {
 			shouldRefetch = hasMoreTimePassedSinceThisDate({
 				date: dataInLS.lastFetch,
-				converter: 'minutes',
-				passedTime: 30,
+				converter: 'days',
+				passedTime: 1,
 			})
 			if (!shouldRefetch) {
 				setIsLoading(false)

@@ -70,7 +70,9 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 							<hr className='border-gray-200' />
 							<div>
 								<span className='text-sm font-semibold'>Description:</span>
-								<p className='mt-1 text-pretty text-sm italic'>{description}</p>
+								<p className='mt-1 text-pretty break-words text-sm italic'>
+									{description}
+								</p>
 							</div>
 						</>
 					)}

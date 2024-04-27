@@ -21,8 +21,8 @@ export const useFetchPodcastList = () => {
 		if (podcastListValueInLocaleStorage) {
 			shouldRefetch = hasMoreTimePassedSinceThisDate({
 				date: podcastListValueInLocaleStorage.lastFetch,
-				converter: 'minutes',
-				passedTime: 35,
+				converter: 'days',
+				passedTime: 1,
 			})
 			if (!shouldRefetch) {
 				setIsLoading(false)
@@ -30,16 +30,6 @@ export const useFetchPodcastList = () => {
 				return
 			}
 		}
-
-		// ! DEVELOP PURPOSE
-		// console.log('🦊‼️ Develop mode')
-		// setIsLoading(false)
-		// setData(podcastListResponseMock.feed.entry)
-		// setPodcastListValueInLocaleStorage({
-		// 	lastFetch: new Date().toString(),
-		// 	list: podcastListResponseMock.feed.entry,
-		// })
-		// return
 
 		fetch(`${BASE_RAW_URL}${PODCAST_LIST_URL}`)
 			.then((response) => {
