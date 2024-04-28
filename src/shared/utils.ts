@@ -1,3 +1,6 @@
+import { PodcastDetails } from '../podcast-details/types/podcast-details'
+import { PodcastEntry } from '../podcast-list/types/podcast-list'
+
 export const hasMoreTimePassedSinceThisDate = ({
 	date,
 	converter = 'minutes',
@@ -14,10 +17,8 @@ export const hasMoreTimePassedSinceThisDate = ({
 	const convertedDifference = timeDifference / timeConverter
 
 	if (convertedDifference >= passedTime) {
-		console.log(`🦊 More than ${passedTime} ${converter} have passed.`)
 		return true
 	} else {
-		console.log(`🦊 Less than ${passedTime} ${converter} have passed.`)
 		return false
 	}
 }
@@ -72,4 +73,12 @@ export function transformToHtml(input: string): string {
 	}
 
 	return html
+}
+
+export const isPodcastEntry = (item: PodcastEntry | PodcastDetails): item is PodcastEntry => {
+	return 'im:name' in item && 'im:image' in item
+}
+
+export const isPodcastDetails = (item: PodcastEntry | PodcastDetails): item is PodcastDetails => {
+	return 'wrapperType' in item
 }

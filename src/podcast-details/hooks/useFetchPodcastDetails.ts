@@ -14,7 +14,6 @@ import {
 	PodcastEpisode,
 } from '../types/podcast-details'
 import { useDetailsDataInLocalStorage } from './useDetailsDataInLocalStorage'
-import { useGetPodcastDescription } from './useGetPodcastDescription'
 
 export const useFetchPodcastDetails = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()
@@ -31,8 +30,6 @@ export const useFetchPodcastDetails = () => {
 			finishLoadingData,
 		})
 	)
-
-	const podcastDescription = useGetPodcastDescription()
 
 	useEffect(() => {
 		loadingData()
@@ -71,13 +68,13 @@ export const useFetchPodcastDetails = () => {
 				) as PodcastEpisode[]
 
 				setData({
-					details: { description: podcastDescription, ...podcastDetails },
+					details: podcastDetails,
 					episodes: podcastEpisodes,
 				})
 				setError(null)
 				setDataInLS({
 					lastFetch: new Date().toString(),
-					details: { description: podcastDescription, ...podcastDetails },
+					details: podcastDetails,
 					episodes: podcastEpisodes,
 				})
 			})
