@@ -5,6 +5,7 @@ import {
 	hasMoreTimePassedSinceThisDate,
 	PODCAST_DETAILS_URL,
 	PodcastDetailsLocalStorage,
+	useLoadingStore,
 } from '../../shared'
 import {
 	PodcastDetails,
@@ -13,7 +14,6 @@ import {
 	PodcastEpisode,
 } from '../types/podcast-details'
 import { useDetailsDataInLocalStorage } from './useDetailsDataInLocalStorage'
-import { useGetPodcastDescription } from './useGetPodcastDescription'
 
 export const useFetchPodcastDetails = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()
@@ -24,10 +24,15 @@ export const useFetchPodcastDetails = () => {
 	const [data, setData] = useState<Omit<PodcastDetailsLocalStorage, 'lastFetch'> | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState(null)
-
-	const podcastDescription = useGetPodcastDescription()
+	const { loadingData, finishLoadingData } = useLoadingStore(
+		({ loadingData, finishLoadingData }) => ({
+			loadingData,
+			finishLoadingData,
+		})
+	)
 
 	useEffect(() => {
+		loadingData()
 		let shouldRefetch = false
 		if (dataInLS) {
 			shouldRefetch = hasMoreTimePassedSinceThisDate({
@@ -36,6 +41,7 @@ export const useFetchPodcastDetails = () => {
 				passedTime: 1,
 			})
 			if (!shouldRefetch) {
+				finishLoadingData()
 				setIsLoading(false)
 				setData({
 					details: dataInLS.details,
@@ -47,14 +53,12 @@ export const useFetchPodcastDetails = () => {
 
 		fetch(BASE_URL + podcastToFetchUrl)
 			.then((response) => {
-				console.log('🦊 response', response)
 				if (!response.ok) {
 					throw Error('could not fetch the data for that resource')
 				}
 				return response.json()
 			})
 			.then((data: PodcastDetailsResponse) => {
-				console.log('🦊 data', data)
 				const podcastAndEpisodes = JSON.parse(data.contents) as PodcastDetailsData
 				const podcastDetails = podcastAndEpisodes.results.find(
 					({ wrapperType }) => wrapperType === 'track'
@@ -64,13 +68,13 @@ export const useFetchPodcastDetails = () => {
 				) as PodcastEpisode[]
 
 				setData({
-					details: { description: podcastDescription, ...podcastDetails },
+					details: podcastDetails,
 					episodes: podcastEpisodes,
 				})
 				setError(null)
 				setDataInLS({
 					lastFetch: new Date().toString(),
-					details: { description: podcastDescription, ...podcastDetails },
+					details: podcastDetails,
 					episodes: podcastEpisodes,
 				})
 			})
@@ -79,6 +83,7 @@ export const useFetchPodcastDetails = () => {
 				setError(err.message)
 			})
 			.finally(() => {
+				finishLoadingData()
 				setIsLoading(false)
 			})
 	}, [])

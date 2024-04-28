@@ -1,3 +1,6 @@
+import { PodcastDetails } from '../podcast-details/types/podcast-details'
+import { PodcastEntry } from '../podcast-list/types/podcast-list'
+
 export const hasMoreTimePassedSinceThisDate = ({
 	date,
 	converter = 'minutes',
@@ -14,10 +17,8 @@ export const hasMoreTimePassedSinceThisDate = ({
 	const convertedDifference = timeDifference / timeConverter
 
 	if (convertedDifference >= passedTime) {
-		console.log(`🦊 More than ${passedTime} ${converter} have passed.`)
 		return true
 	} else {
-		console.log(`🦊 Less than ${passedTime} ${converter} have passed.`)
 		return false
 	}
 }
@@ -53,6 +54,7 @@ const padZero = (num: number): string => {
 
 export function transformToHtml(input: string): string {
 	const paragraphs = input.split('\n')
+	const urlPattern = /\b(?:https?:\/\/)?(?:www\.)?(?:[\w-]+\.)+(?:com|es|net)(?:\/\S*)?\b/gi
 	let html = ''
 
 	for (const paragraph of paragraphs) {
@@ -60,8 +62,8 @@ export function transformToHtml(input: string): string {
 			continue
 		}
 
-		const paragraphWithLinks = paragraph.replace(/((https?:\/\/|www\.)\S+)/g, (match) => {
-			if (match.startsWith('www.')) {
+		const paragraphWithLinks = paragraph.replace(urlPattern, (match) => {
+			if (!match.startsWith('http')) {
 				return `<a href="https://${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
 			}
 			return `<a href="${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
@@ -71,4 +73,12 @@ export function transformToHtml(input: string): string {
 	}
 
 	return html
+}
+
+export const isPodcastEntry = (item: PodcastEntry | PodcastDetails): item is PodcastEntry => {
+	return 'im:name' in item && 'im:image' in item
+}
+
+export const isPodcastDetails = (item: PodcastEntry | PodcastDetails): item is PodcastDetails => {
+	return 'wrapperType' in item
 }

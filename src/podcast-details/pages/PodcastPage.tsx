@@ -1,21 +1,34 @@
+import { useMemo } from 'react'
 import { Episodes } from '../components/Episodes'
-import { PodcastDetailsSkeleton } from '../components/PodcastDetailsSkeleton'
+import { EpisodesSkeleton } from '../components/EpisodesSkeleton'
 import { PodcastHelmet } from '../components/PodcastHelmet'
 import { PodcastInfo } from '../components/PodcastInfo'
+import { PodcastInfoSkeleton } from '../components/PodcastInfoSkeleton'
 import { useFetchPodcastDetails } from '../hooks/useFetchPodcastDetails'
+import useGetPodcastFromList from '../hooks/useGetPodcastFromList'
 
 export const PodcastPage = () => {
-	const { data, isLoading, error } = useFetchPodcastDetails()
+	const { data, error } = useFetchPodcastDetails()
+	const { podcastFromList } = useGetPodcastFromList()
 	const { details, episodes } = data ?? {}
+	const podcastInfoDetails = useMemo(() => {
+		if (details) {
+			return details
+		}
+		return podcastFromList
+	}, [details, podcastFromList])
 
 	return (
 		<div>
-			{isLoading && <PodcastDetailsSkeleton />}
 			{error && <h1>{error}</h1>}
 			{details && <PodcastHelmet details={details} />}
 			<section className='flex flex-col gap-10 md:flex-row'>
-				{details && <PodcastInfo details={details} />}
-				{episodes && <Episodes episodes={episodes} />}
+				{podcastInfoDetails ? (
+					<PodcastInfo details={podcastInfoDetails} />
+				) : (
+					<PodcastInfoSkeleton />
+				)}
+				{episodes ? <Episodes episodes={episodes} /> : <EpisodesSkeleton />}
 			</section>
 		</div>
 	)

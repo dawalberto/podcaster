@@ -1,24 +1,15 @@
 import clsx from 'clsx'
 import { Link, useParams } from 'react-router-dom'
+import { PodcastEntry } from '../../podcast-list/types/podcast-list'
+import useFetchPodcastInfo from '../hooks/useFetchPodcastInfo'
 import { PodcastDetails } from '../types/podcast-details'
 
-export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
+export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntry }) => {
 	const { episodeId } = useParams()
-	const {
-		artworkUrl30,
-		artworkUrl60,
-		artworkUrl100,
-		artworkUrl600,
-		trackName,
-		trackId,
-		artistName,
-		description,
-	} = details
-	const srcSet = `${artworkUrl30} 30w,
-                    ${artworkUrl60} 60w,
-                    ${artworkUrl100} 100w,
-                    ${artworkUrl600} 600w
-                    `
+	const { trackId, trackName, artistName, description, srcImage, srcSet } = useFetchPodcastInfo({
+		podcast: details,
+	})
+
 	return (
 		<div className='flex h-fit w-full flex-none flex-col gap-4 rounded-md border border-neutral-200 p-4 text-neutral-800 shadow md:w-1/4'>
 			{details && (
@@ -34,10 +25,8 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 								)}
 								loading='lazy'
 								srcSet={srcSet}
-								sizes='(max-width: 600px) 30px,
-								    (max-width: 900px) 60px,
-								    600px'
-								src={artworkUrl600}
+								sizes='(max-width: 600px) 60px, 600px'
+								src={srcImage}
 								alt='Podcast cover'
 							/>
 						</Link>

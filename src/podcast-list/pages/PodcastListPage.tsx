@@ -10,7 +10,7 @@ export const PodcastListPage = () => {
 	return (
 		<div>
 			{isLoading && <PodcastListSkeleton />}
-			{error && <div>{error}</div>} {/* // TODO - Error component */}
+			{error && <div>{error}</div>}
 			<PodcastListHelmet />
 			{podcastList && (
 				<>
