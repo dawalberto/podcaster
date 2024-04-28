@@ -5,7 +5,6 @@ import { PodcastDetails } from '../types/podcast-details'
 export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 	const { episodeId } = useParams()
 	const {
-		artworkUrl30,
 		artworkUrl60,
 		artworkUrl100,
 		artworkUrl600,
@@ -14,8 +13,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 		artistName,
 		description,
 	} = details
-	const srcSet = `${artworkUrl30} 30w,
-                    ${artworkUrl60} 60w,
+	const srcSet = `${artworkUrl60} 60w,
                     ${artworkUrl100} 100w,
                     ${artworkUrl600} 600w
                     `
@@ -34,9 +32,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails }) => {
 								)}
 								loading='lazy'
 								srcSet={srcSet}
-								sizes='(max-width: 600px) 30px,
-								    (max-width: 900px) 60px,
-								    600px'
+								sizes='(max-width: 900px) 60px, 600px'
 								src={artworkUrl600}
 								alt='Podcast cover'
 							/>
