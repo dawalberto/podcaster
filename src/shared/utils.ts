@@ -53,6 +53,7 @@ const padZero = (num: number): string => {
 
 export function transformToHtml(input: string): string {
 	const paragraphs = input.split('\n')
+	const urlPattern = /\b(?:https?:\/\/)?(?:www\.)?(?:[\w-]+\.)+(?:com|es|net)(?:\/\S*)?\b/gi
 	let html = ''
 
 	for (const paragraph of paragraphs) {
@@ -60,8 +61,8 @@ export function transformToHtml(input: string): string {
 			continue
 		}
 
-		const paragraphWithLinks = paragraph.replace(/((https?:\/\/|www\.)\S+)/g, (match) => {
-			if (match.startsWith('www.')) {
+		const paragraphWithLinks = paragraph.replace(urlPattern, (match) => {
+			if (!match.startsWith('http')) {
 				return `<a href="https://${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
 			}
 			return `<a href="${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`

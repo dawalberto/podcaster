@@ -6,6 +6,7 @@ import {
 	PODCAST_LIST_LOCAL_STORAGE_KEY,
 	PODCAST_LIST_URL,
 	PodcastListLocalStorage,
+	useLoadingStore,
 } from '../../shared'
 import { PodcastEntry, PodcastListResponse } from '../types/podcast-list'
 
@@ -15,8 +16,15 @@ export const useFetchPodcastList = () => {
 	const [data, setData] = useState<PodcastEntry[] | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState(null)
+	const { loadingData, finishLoadingData } = useLoadingStore(
+		({ loadingData, finishLoadingData }) => ({
+			loadingData,
+			finishLoadingData,
+		})
+	)
 
 	useEffect(() => {
+		loadingData()
 		let shouldRefetch = false
 		if (podcastListValueInLocaleStorage) {
 			shouldRefetch = hasMoreTimePassedSinceThisDate({
@@ -25,6 +33,7 @@ export const useFetchPodcastList = () => {
 				passedTime: 1,
 			})
 			if (!shouldRefetch) {
+				finishLoadingData()
 				setIsLoading(false)
 				setData(podcastListValueInLocaleStorage.list)
 				return
@@ -52,6 +61,7 @@ export const useFetchPodcastList = () => {
 				setError(err.message)
 			})
 			.finally(() => {
+				finishLoadingData()
 				setIsLoading(false)
 			})
 	}, [])
