@@ -11,7 +11,7 @@ export const Header = () => {
 			<header className='sticky top-0 z-20 my-2 bg-white'>
 				<div className='flex items-center justify-between px-1'>
 					<Link
-						to='/podcaster'
+						to='/podcaster/'
 						className='text-xl font-semibold text-sky-700/80 hover:text-sky-900 active:text-sky-600'
 					>
 						Podcaster

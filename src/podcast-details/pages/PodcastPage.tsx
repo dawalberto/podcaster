@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 import { Episodes } from '../components/Episodes'
 import { EpisodesSkeleton } from '../components/EpisodesSkeleton'
@@ -23,7 +24,11 @@ export const PodcastPage = () => {
 	}
 
 	return (
-		<div>
+		<motion.main
+			initial={{ opacity: 0, x: '-100%' }}
+			animate={{ opacity: 1, x: 0 }}
+			transition={{ duration: 1.2 }}
+		>
 			{details && <PodcastHelmet details={details} />}
 			<section className='flex flex-col gap-10 md:flex-row'>
 				{podcastInfoDetails ? (
@@ -37,6 +42,6 @@ export const PodcastPage = () => {
 					<EpisodesSkeleton />
 				)}
 			</section>
-		</div>
+		</motion.main>
 	)
 }
