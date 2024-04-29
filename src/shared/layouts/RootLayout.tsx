@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion'
 import { Outlet } from 'react-router-dom'
 import { Header } from '../components/Header'
 
@@ -6,7 +7,9 @@ export const RootLayout = () => {
 		<div className='relative mx-auto max-w-screen-2xl px-2'>
 			<Header />
 			<main className='m-4'>
-				<Outlet />
+				<AnimatePresence mode='wait'>
+					<Outlet />
+				</AnimatePresence>
 			</main>
 		</div>
 	)

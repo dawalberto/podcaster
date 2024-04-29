@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { PodcastInfo } from '../../podcast-details/components/PodcastInfo'
@@ -25,12 +26,18 @@ export const EpisodePage = () => {
 	}
 
 	return (
-		<div>
+		<>
 			{details && episode && <EpisodeHelmet details={details} episode={episode} />}
 			<section className='flex flex-col gap-10 md:flex-row'>
 				{details && <PodcastInfo details={details} />}
-				{episode && <Episode episode={episode} />}
+				<motion.main
+					initial={{ opacity: 0, x: '100%' }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ duration: 1.2 }}
+				>
+					{episode && <Episode episode={episode} />}
+				</motion.main>
 			</section>
-		</div>
+		</>
 	)
 }
