@@ -16,10 +16,16 @@ export const EpisodePage = () => {
 		[episodeId, episodes]
 	)
 
+	if (isLoading) {
+		return <PodcastEpisodeSkeleton />
+	}
+
+	if (error) {
+		return <div>{error}</div>
+	}
+
 	return (
 		<div>
-			{isLoading && <PodcastEpisodeSkeleton />}
-			{error && <h1>{error}</h1>}
 			{details && episode && <EpisodeHelmet details={details} episode={episode} />}
 			<section className='flex flex-col gap-10 md:flex-row'>
 				{details && <PodcastInfo details={details} />}

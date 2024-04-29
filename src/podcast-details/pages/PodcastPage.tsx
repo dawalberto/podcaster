@@ -18,9 +18,12 @@ export const PodcastPage = () => {
 		return podcastFromList
 	}, [details, podcastFromList])
 
+	if (error) {
+		return <div>{error}</div>
+	}
+
 	return (
 		<div>
-			{error && <h1>{error}</h1>}
 			{details && <PodcastHelmet details={details} />}
 			<section className='flex flex-col gap-10 md:flex-row'>
 				{podcastInfoDetails ? (
