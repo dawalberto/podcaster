@@ -28,7 +28,11 @@ export const PodcastPage = () => {
 				) : (
 					<PodcastInfoSkeleton />
 				)}
-				{episodes ? <Episodes episodes={episodes} /> : <EpisodesSkeleton />}
+				{details && episodes ? (
+					<Episodes episodes={episodes} trackCount={details.trackCount} />
+				) : (
+					<EpisodesSkeleton />
+				)}
 			</section>
 		</div>
 	)

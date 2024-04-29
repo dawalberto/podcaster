@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom'
 import { formatDate, formatTrackTime } from '../../shared'
-import { PodcastEpisode } from '../types/podcast-details'
+import { PodcastDetails, PodcastEpisode } from '../types/podcast-details'
 
-export const Episodes = ({ episodes }: { episodes: PodcastEpisode[] }) => {
+export const Episodes = ({
+	episodes,
+	trackCount,
+}: {
+	episodes: PodcastEpisode[]
+	trackCount: Pick<PodcastDetails, 'trackCount'>['trackCount']
+}) => {
 	return (
 		<div className='flex grow flex-col gap-3'>
 			<div className='rounded-md border border-neutral-200 px-3 py-2 shadow'>
-				<span className='text-2xl font-semibold'>Episodes: {episodes.length}</span>
+				<span className='text-2xl font-semibold'>Episodes: {trackCount}</span>
 			</div>
 			<div className='w-full rounded-md border border-neutral-200 p-3 shadow'>
 				<table className='w-full table-auto'>
