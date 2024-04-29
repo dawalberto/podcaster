@@ -7,10 +7,16 @@ import { usePodcastList } from '../hooks/usePodcastList'
 export const PodcastListPage = () => {
 	const { podcastList, isLoading, error, handleOnSearch } = usePodcastList()
 
+	if (isLoading) {
+		return <PodcastListSkeleton />
+	}
+
+	if (error) {
+		return <div>{error}</div>
+	}
+
 	return (
 		<div>
-			{isLoading && <PodcastListSkeleton />}
-			{error && <div>{error}</div>}
 			<PodcastListHelmet />
 			{podcastList && (
 				<>
