@@ -1,10 +1,8 @@
-import { motion } from 'framer-motion'
 import { SearchInput } from '../../shared'
 import { PodcastCard } from '../components/PodcastCard'
 import { PodcastListHelmet } from '../components/PodcastListHelmet'
 import { PodcastListSkeleton } from '../components/PodcastListSkeleton'
 import { usePodcastList } from '../hooks/usePodcastList'
-
 export const PodcastListPage = () => {
 	const { podcastList, isLoading, error, handleOnSearch } = usePodcastList()
 
@@ -17,11 +15,7 @@ export const PodcastListPage = () => {
 	}
 
 	return (
-		<motion.main
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ duration: 1.2 }}
-		>
+		<>
 			<PodcastListHelmet />
 			{podcastList && (
 				<>
@@ -38,6 +32,6 @@ export const PodcastListPage = () => {
 					</div>
 				</>
 			)}
-		</motion.main>
+		</>
 	)
 }
