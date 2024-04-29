@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { PodcastInfo } from '../../podcast-details/components/PodcastInfo'
 import { useFetchPodcastDetails } from '../../podcast-details/hooks/useFetchPodcastDetails'
+import { Transition } from '../../shared/components/Transition'
 import { Episode } from '../components/Episode'
 import { EpisodeHelmet } from '../components/EpisodeHelmet'
 import { PodcastEpisodeSkeleton } from '../components/EpisodeSkeleton'
@@ -30,13 +30,15 @@ export const EpisodePage = () => {
 			{details && episode && <EpisodeHelmet details={details} episode={episode} />}
 			<section className='flex flex-col gap-10 md:flex-row'>
 				{details && <PodcastInfo details={details} />}
-				<motion.main
-					initial={{ opacity: 0, x: '100%' }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ duration: 1.2 }}
+				<Transition
+					springs={{
+						from: { x: 100 },
+						to: { x: 0 },
+						config: { duration: 5 },
+					}}
 				>
-					{episode && <Episode episode={episode} />}
-				</motion.main>
+					<>{episode && <Episode episode={episode} />}</>
+				</Transition>
 			</section>
 		</>
 	)
