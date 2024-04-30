@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react'
+import { GlobalFetch } from '../../../shared/__test__/test-types'
 import { useFetchPodcastList } from '../../hooks/useFetchPodcastList'
 
 describe('useFetchPodcastList error', () => {
@@ -66,5 +67,3 @@ describe('useFetchPodcastList', () => {
 		await waitFor(() => expect(spyLoStoGet).toHaveBeenCalled())
 	})
 })
-
-type GlobalFetch = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
