@@ -20,7 +20,10 @@ describe('PodcastCard', () => {
 
 		const titleElement = screen.getByText('Podcast Title')
 		const authorElement = screen.getByText('Author: Podcast Author')
+		const imageElement = screen.getByAltText('Podcast cover')
 
+		expect(imageElement).toBeInTheDocument()
+		expect(imageElement).toHaveAttribute('srcSet', 'image.jpg 100w')
 		expect(titleElement).toBeInTheDocument()
 		expect(authorElement).toBeInTheDocument()
 	})
