@@ -1,12 +1,12 @@
 import clsx from 'clsx'
 import { Link, useParams } from 'react-router-dom'
 import { PodcastEntry } from '../../podcast-list/types/podcast-list'
-import useFetchPodcastInfo from '../hooks/useFetchPodcastInfo'
+import useGetPodcastInfo from '../hooks/useGetPodcastInfo'
 import { PodcastDetails } from '../types/podcast-details'
 
 export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntry }) => {
 	const { episodeId } = useParams()
-	const { trackId, trackName, artistName, description, srcImage, srcSet } = useFetchPodcastInfo({
+	const { trackId, trackName, artistName, description, srcImage, srcSet } = useGetPodcastInfo({
 		podcast: details,
 	})
 

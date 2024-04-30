@@ -10,12 +10,36 @@ export const podcastListResponseMock: PodcastListResponse = {
 	feed: {
 		entry: [
 			{
+				id: {
+					label: 'https...',
+					attributes: {
+						'im:id': '8771',
+					},
+				},
 				'im:name': { label: 'Podcast 1' },
 				'im:artist': { label: 'Artist 1' },
+				'im:image': [
+					{ label: 'image1', attributes: { height: '60' } },
+					{ label: 'image2', attributes: { height: '100' } },
+					{ label: 'image3', attributes: { height: '600' } },
+				],
+				summary: { label: 'Podcast 1 description' },
 			},
 			{
+				id: {
+					label: 'https...',
+					attributes: {
+						'im:id': '9118',
+					},
+				},
 				'im:name': { label: 'Podcast 2' },
 				'im:artist': { label: 'Artist 2' },
+				'im:image': [
+					{ label: 'image1', attributes: { height: '60' } },
+					{ label: 'image2', attributes: { height: '100' } },
+					{ label: 'image3', attributes: { height: '600' } },
+				],
+				summary: { label: 'Podcast 2 description' },
 			},
 		] as PodcastEntry[],
 	},
@@ -39,6 +63,7 @@ export const podcastDetailsMock: Omit<PodcastDetailsLocalStorage, 'lastFetch'> =
 		trackCount: 287,
 		trackTimeMillis: 603,
 		artworkUrl600: 'image600.jpg',
+		description: 'Podcast description',
 	} as PodcastDetails,
 	episodes: [
 		{
