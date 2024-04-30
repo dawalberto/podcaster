@@ -14,8 +14,8 @@ export const Episode = ({ episode }: { episode: PodcastEpisode }) => {
 				}}
 			/>
 			{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-			<audio controls className='mt-8 w-full'>
-				<source src={episodeUrl} type='audio/mp3' />
+			<audio data-testid='episode-audio' controls className='mt-8 w-full'>
+				<source data-testid='episode-audio-src' src={episodeUrl} type='audio/mp3' />
 				Your browser does not support the audio element.
 			</audio>
 		</div>
