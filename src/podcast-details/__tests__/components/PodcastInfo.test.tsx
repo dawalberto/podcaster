@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import { PodcastEntry } from '../../../podcast-list/types/podcast-list'
 import { PodcastInfo } from '../../components/PodcastInfo'
@@ -73,5 +73,18 @@ describe('PodcastInfo', () => {
 		const imageElement = screen.getByAltText('Podcast cover')
 		expect(imageElement).toBeInTheDocument()
 		expect(imageElement).toHaveAttribute('src', 'image170.jpg')
+	})
+
+	test('navigates to podcast detail page on click', () => {
+		render(
+			<BrowserRouter>
+				<PodcastInfo details={podcastDetails} />
+			</BrowserRouter>
+		)
+
+		const titleElement = screen.getByText('Podcast Title')
+		fireEvent.click(titleElement)
+
+		expect(window.location.pathname).toBe('/podcaster/podcast/123')
 	})
 })
