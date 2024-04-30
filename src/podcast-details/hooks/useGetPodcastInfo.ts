@@ -3,20 +3,14 @@ import { isPodcastDetails, isPodcastEntry } from '../../shared'
 import { PodcastDetails } from '../types/podcast-details'
 import { useGetPodcastDescription } from './useGetPodcastDescription'
 
-export default function useFetchPodcastInfo({
-	podcast,
-}: {
-	podcast: PodcastDetails | PodcastEntry
-}) {
+export default function useGetPodcastInfo({ podcast }: { podcast: PodcastDetails | PodcastEntry }) {
 	const podcastDescription = useGetPodcastDescription()
 
 	if (isPodcastDetails(podcast)) {
 		const { artworkUrl60, artworkUrl100, artworkUrl600, trackName, trackId, artistName } =
 			podcast
-		const srcSet = `${artworkUrl60} 60w,
-							${artworkUrl100} 100w,
-							${artworkUrl600} 600w
-							`
+		const srcSet = `${artworkUrl60} 60w, ${artworkUrl100} 100w, ${artworkUrl600} 600w`
+
 		return {
 			trackId,
 			trackName,
