@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import { PodcastCard } from '../components/PodcastCard'
-import { PodcastEntry } from '../types/podcast-list'
+import { PodcastCard } from '../../components/PodcastCard'
+import { PodcastEntry } from '../../types/podcast-list'
 
 describe('PodcastCard', () => {
 	const podcast = {
