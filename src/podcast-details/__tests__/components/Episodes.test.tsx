@@ -1,23 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
+import { podcastDetailsMock } from '../../../shared/__test__/mocks'
 import { Episodes } from '../../components/Episodes'
-import { PodcastEpisode } from '../../types/podcast-details'
 
 describe('Episodes', () => {
-	const episodes = [
-		{
-			trackName: 'Episode 1',
-			releaseDate: '2024-04-30',
-			trackTimeMillis: 3600000,
-			trackId: 1,
-		},
-		{
-			trackName: 'Episode 2',
-			releaseDate: '2024-05-01',
-			trackTimeMillis: 1800000,
-			trackId: 2,
-		},
-	] as PodcastEpisode[]
+	const episodes = podcastDetailsMock.episodes
 
 	test('renders episodes correctly', () => {
 		render(
