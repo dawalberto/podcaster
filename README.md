@@ -26,11 +26,35 @@ The Podcaster app allows users to discover and listen their favorite podcasts. W
 -   **Loading indicator**: Indicates at all times whether the user is browsing or loading data.
 -   **Responsive Design**: Ensure optimal viewing experience across a range of devices and screen sizes.
 
+## Testing
+
+### Unit and Integration Tests
+
+This project includes unit and integration tests written with Jest. To run the tests, use the following command:
+
+```bash
+npm run test
+```
+
+### End-to-End (E2E) Tests
+
+End-to-end tests are implemented with Cypress. To execute the E2E tests, use the following command:
+
+```bash
+npm run cy:open
+```
+
+or
+
+```bash
+npx cypress run
+```
+
 ## Getting Started
 
 To get started with the Podcaster app, follow these steps:
 
-1. `git clone https://github.com/dawalberto/podcaster`
+1. `git clone https://github.com/dawalberto/podcaster.git`
 2. `cd podcaster`
 3. `npm install`
 4. `npm run dev`
