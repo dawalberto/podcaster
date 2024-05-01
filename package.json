@@ -5,10 +5,12 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
+		"start": "vite",
 		"build": "tsc && vite build",
 		"test": "jest",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"cy:open": "cypress open"
 	},
 	"dependencies": {
 		"@react-spring/web": "^9.7.3",
@@ -32,6 +34,7 @@
 		"@typescript-eslint/parser": "^7.2.0",
 		"@vitejs/plugin-react": "^4.2.1",
 		"autoprefixer": "^10.4.19",
+		"cypress": "^13.8.1",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-import": "^2.29.1",
