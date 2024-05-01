@@ -33,7 +33,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntr
 					</div>
 					<hr className='border-gray-200' />
 					<div>
-						<Link to={`/podcaster/podcast/${trackId}`}>
+						<Link to={`/podcaster/podcast/${trackId}`} data-testid='podcast-title'>
 							<h1
 								className={clsx(
 									'text-base font-semibold',

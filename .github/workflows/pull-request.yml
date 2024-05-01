@@ -16,6 +16,12 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
+    - name: Run Jest tests
       run: npm test 
+
+    - name: Run Cypress Test
+      uses: cypress-io/github-action@v4
+      with:
+        command: npx cypress run
+        browser: chrome
 
