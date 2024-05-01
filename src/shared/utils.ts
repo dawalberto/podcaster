@@ -32,7 +32,7 @@ export const formatDate = (inputDate: string): string => {
 	return `${padZero(day)}/${padZero(month)}/${year}`
 }
 
-export const formatTrackTime = (trackTimeMillis: number): string => {
+export const formatTrackTime = (trackTimeMillis?: number): string => {
 	if (!trackTimeMillis) return '-'
 
 	const seconds = Math.floor(trackTimeMillis / 1000)
