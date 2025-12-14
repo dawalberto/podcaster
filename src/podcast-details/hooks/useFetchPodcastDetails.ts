@@ -7,12 +7,7 @@ import {
 	PodcastDetailsLocalStorage,
 	useLoadingStore,
 } from '../../shared'
-import {
-	PodcastDetails,
-	PodcastDetailsData,
-	PodcastDetailsResponse,
-	PodcastEpisode,
-} from '../types/podcast-details'
+import { PodcastDetails, PodcastDetailsData, PodcastEpisode } from '../types/podcast-details'
 import { useDetailsDataInLocalStorage } from './useDetailsDataInLocalStorage'
 
 export const useFetchPodcastDetails = () => {
@@ -59,6 +54,7 @@ export const useFetchPodcastDetails = () => {
 				return response.json()
 			})
 			.then((data: PodcastDetailsResponse) => {
+				// allorigins.win/get devuelve los datos en data.contents como string
 				const podcastAndEpisodes = JSON.parse(data.contents) as PodcastDetailsData
 				const podcastDetails = podcastAndEpisodes.results.find(
 					({ wrapperType }) => wrapperType === 'track'
