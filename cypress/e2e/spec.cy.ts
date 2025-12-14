@@ -3,7 +3,7 @@ describe('Full flow', () => {
 		cy.visit('http://localhost:5173/podcaster/')
 		cy.intercept(
 			'GET',
-			'https://api.allorigins.win/raw?url=https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json'
+			'https://corsproxy.io/?https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json'
 		).as('fetchData')
 		cy.wait('@fetchData')
 	})
