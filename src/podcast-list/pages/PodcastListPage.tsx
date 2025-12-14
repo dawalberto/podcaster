@@ -20,7 +20,7 @@ export const PodcastListPage = () => {
 			{podcastList && (
 				<>
 					<div className='flex items-center justify-end gap-2'>
-						<span className='flex-none rounded-md bg-sky-700 px-1.5 py-0 font-semibold text-white'>
+						<span className='flex-none rounded-lg border border-white/10 bg-white/5 px-2 py-0.5 font-semibold text-slate-100'>
 							{podcastList.length}
 						</span>
 						<SearchInput onSearch={handleOnSearch} />

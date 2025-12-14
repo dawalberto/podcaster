@@ -5,10 +5,10 @@ export const Episode = ({ episode }: { episode: PodcastEpisode }) => {
 	const { trackName, description, episodeUrl } = episode
 
 	return (
-		<div className='h-fit grow rounded-md border border-neutral-200 p-3 shadow'>
-			<h1 className='text-xl font-bold text-neutral-800'>{trackName}</h1>
+		<div className='h-fit grow rounded-xl border border-white/10 bg-slate-900/35 p-4 shadow-lg backdrop-blur-md'>
+			<h1 className='text-xl font-bold text-slate-100'>{trackName}</h1>
 			<div
-				className='inserted-html mt-3'
+				className='inserted-html mt-3 text-slate-300'
 				dangerouslySetInnerHTML={{
 					__html: transformToHtml(description),
 				}}

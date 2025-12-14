@@ -64,9 +64,9 @@ export function transformToHtml(input: string): string {
 
 		const paragraphWithLinks = paragraph.replace(urlPattern, (match) => {
 			if (!match.startsWith('http')) {
-				return `<a href="https://${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
+				return `<a href="https://${match}" target="_blank" class="text-slate-200 underline decoration-white/10 underline-offset-2 hover:text-white hover:decoration-white/20">${match}</a>`
 			}
-			return `<a href="${match}" target="_blank" class="text-sky-700/80 hover:text-sky-700">${match}</a>`
+			return `<a href="${match}" target="_blank" class="text-slate-200 underline decoration-white/10 underline-offset-2 hover:text-white hover:decoration-white/20">${match}</a>`
 		})
 
 		html += `<p class="my-2 text-pretty">${paragraphWithLinks}</p>`
