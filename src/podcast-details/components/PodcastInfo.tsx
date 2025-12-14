@@ -11,16 +11,16 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntr
 	})
 
 	return (
-		<div className='flex h-fit w-full flex-none flex-col gap-4 rounded-md border border-neutral-200 p-4 text-neutral-800 shadow md:w-1/4'>
+		<div className='flex h-fit w-full flex-none flex-col gap-4 rounded-xl border border-white/10 bg-slate-900/35 p-4 text-slate-100 shadow-lg backdrop-blur-md md:w-1/4'>
 			{details && (
 				<>
 					<div className='mx-auto w-1/2 md:w-4/5'>
 						<Link to={`/podcaster/podcast/${trackId}`}>
 							<img
 								className={clsx(
-									'w-full rounded-md',
+									'w-full rounded-lg ring-1 ring-white/10',
 									episodeId
-										? 'cursor-pointer hover:-rotate-6 hover:scale-105 hover:saturate-150'
+										? 'hover:saturate-125 cursor-pointer hover:-rotate-6 hover:scale-105 hover:ring-white/20'
 										: 'cursor-default'
 								)}
 								loading='lazy'
@@ -31,7 +31,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntr
 							/>
 						</Link>
 					</div>
-					<hr className='border-gray-200' />
+					<hr className='border-white/10' />
 					<div>
 						<Link to={`/podcaster/podcast/${trackId}`} data-testid='podcast-title'>
 							<h1
@@ -46,7 +46,7 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntr
 						<Link to={`/podcaster/podcast/${trackId}`}>
 							<h2
 								className={clsx(
-									'mt-1 text-sm',
+									'mt-1 text-sm text-slate-300',
 									episodeId ? linkStyle : 'cursor-default'
 								)}
 							>
@@ -56,10 +56,12 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntr
 					</div>
 					{description && (
 						<>
-							<hr className='border-gray-200' />
+							<hr className='border-white/10' />
 							<div>
-								<span className='text-sm font-semibold'>Description:</span>
-								<p className='mt-1 text-pretty break-words text-sm italic'>
+								<span className='text-sm font-semibold text-slate-200'>
+									Description:
+								</span>
+								<p className='mt-1 text-pretty break-words text-sm text-slate-300'>
 									{description}
 								</p>
 							</div>
@@ -71,4 +73,4 @@ export const PodcastInfo = ({ details }: { details: PodcastDetails | PodcastEntr
 	)
 }
 
-const linkStyle = 'hover:text-sky-700 active:text-sky-600'
+const linkStyle = 'hover:text-white active:text-slate-200'

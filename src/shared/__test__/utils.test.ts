@@ -63,7 +63,7 @@ describe('transformToHtml', () => {
 	it('transforms plain text to HTML with links for URLs', () => {
 		const input = 'Check out this website: https://example.com'
 		const expectedOutput =
-			'<p class="my-2 text-pretty">Check out this website: <a href="https://example.com" target="_blank" class="text-sky-700/80 hover:text-sky-700">https://example.com</a></p>'
+			'<p class="my-2 text-pretty">Check out this website: <a href="https://example.com" target="_blank" class="text-slate-200 underline decoration-white/10 underline-offset-2 hover:text-white hover:decoration-white/20">https://example.com</a></p>'
 		expect(transformToHtml(input)).toEqual(expectedOutput)
 	})
 
@@ -83,7 +83,7 @@ describe('transformToHtml', () => {
 		const input =
 			'Check out these websites:\nhttps://example.com\nhttps://another-example.com\nAnd this one too: www.example.net'
 		const expectedOutput =
-			'<p class="my-2 text-pretty">Check out these websites:</p><p class="my-2 text-pretty"><a href="https://example.com" target="_blank" class="text-sky-700/80 hover:text-sky-700">https://example.com</a></p><p class="my-2 text-pretty"><a href="https://another-example.com" target="_blank" class="text-sky-700/80 hover:text-sky-700">https://another-example.com</a></p><p class="my-2 text-pretty">And this one too: <a href="https://www.example.net" target="_blank" class="text-sky-700/80 hover:text-sky-700">www.example.net</a></p>'
+			'<p class="my-2 text-pretty">Check out these websites:</p><p class="my-2 text-pretty"><a href="https://example.com" target="_blank" class="text-slate-200 underline decoration-white/10 underline-offset-2 hover:text-white hover:decoration-white/20">https://example.com</a></p><p class="my-2 text-pretty"><a href="https://another-example.com" target="_blank" class="text-slate-200 underline decoration-white/10 underline-offset-2 hover:text-white hover:decoration-white/20">https://another-example.com</a></p><p class="my-2 text-pretty">And this one too: <a href="https://www.example.net" target="_blank" class="text-slate-200 underline decoration-white/10 underline-offset-2 hover:text-white hover:decoration-white/20">www.example.net</a></p>'
 		expect(transformToHtml(input)).toEqual(expectedOutput)
 	})
 })
