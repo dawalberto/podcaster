@@ -1,11 +1,92 @@
 describe('Full flow', () => {
 	beforeEach(() => {
-		cy.visit('http://localhost:5173/podcaster/')
+		const podcastList = {
+			feed: {
+				entry: [
+					{
+						id: {
+							attributes: { 'im:id': '123' },
+							label: 'https://example.com/podcast/123',
+						},
+						'im:name': { label: 'Test Podcast' },
+						'im:artist': { label: 'Test Artist' },
+						'im:image': [
+							{ label: 'https://example.com/60.jpg', attributes: { height: '60' } },
+							{
+								label: 'https://example.com/100.jpg',
+								attributes: { height: '100' },
+							},
+							{
+								label: 'https://example.com/600.jpg',
+								attributes: { height: '600' },
+							},
+						],
+						summary: { label: 'Test summary' },
+					},
+				],
+			},
+		}
+
+		const podcastDetails = {
+			resultCount: 3,
+			results: [
+				{
+					wrapperType: 'track',
+					kind: 'podcast',
+					trackId: 123,
+					artistName: 'Test Artist',
+					collectionName: 'Test Collection',
+					trackName: 'Test Podcast',
+					releaseDate: '2024-04-23T23:30:00Z',
+					trackCount: 2,
+					artworkUrl30: 'https://example.com/30.jpg',
+					artworkUrl60: 'https://example.com/60.jpg',
+					artworkUrl100: 'https://example.com/100.jpg',
+					artworkUrl600: 'https://example.com/600.jpg',
+					description: 'Podcast description',
+				},
+				{
+					wrapperType: 'podcastEpisode',
+					trackId: 1,
+					trackName: 'Episode 1',
+					releaseDate: '2024-04-30',
+					trackTimeMillis: 60000,
+					episodeUrl: 'https://example.com/ep1.mp3',
+					description: 'Episode 1 description',
+				},
+				{
+					wrapperType: 'podcastEpisode',
+					trackId: 2,
+					trackName: 'Episode 2',
+					releaseDate: '2024-05-01',
+					trackTimeMillis: 120000,
+					episodeUrl: 'https://example.com/ep2.mp3',
+					description: 'Episode 2 description',
+				},
+			],
+		}
+
+		cy.intercept('GET', /https:\/\/api\.allorigins\.win\/get\?url=.*toppodcasts.*json/i, {
+			statusCode: 200,
+			body: { contents: JSON.stringify(podcastList) },
+		}).as('fetchData')
+
 		cy.intercept(
 			'GET',
-			'https://corsproxy.io/?https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json'
-		).as('fetchData')
-		cy.wait('@fetchData')
+			/https:\/\/api\.allorigins\.win\/get\?url=.*itunes\.apple\.com.*lookup.*/i,
+			{
+				statusCode: 200,
+				body: { contents: JSON.stringify(podcastDetails) },
+			}
+		).as('fetchDataDetails')
+
+		cy.visit('http://localhost:5173/podcaster/', {
+			onBeforeLoad(win) {
+				win.localStorage.clear()
+				win.sessionStorage.clear()
+			},
+		})
+		cy.wait('@fetchData', { timeout: 20000 })
 	})
 
 	it('loads successfully', () => {
@@ -34,18 +115,14 @@ describe('Full flow', () => {
 			.invoke('attr', 'href')
 			.then((href) => {
 				cy.get('.podcast-item').first().click()
-				const podcastId = href.split('/').at(-1)
-				cy.intercept(
-					'GET',
-					`https://api.allorigins.win/get?url=https%3A%2F%2Fitunes.apple.com%2Flookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D20`
-				).as('fetchDataDetails')
+				cy.url().should('include', href)
 				cy.wait('@fetchDataDetails')
 				cy.get('.episode')
 					.first()
 					.invoke('attr', 'href')
-					.then((href) => {
+					.then((episodeHref) => {
 						cy.get('.episode').first().click()
-						cy.url().should('include', href)
+						cy.url().should('include', episodeHref)
 						cy.get('[data-testid="episode-audio"]').should('exist')
 					})
 			})
