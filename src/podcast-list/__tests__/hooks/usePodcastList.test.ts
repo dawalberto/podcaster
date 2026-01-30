@@ -7,7 +7,10 @@ describe('usePodcastList', () => {
 	const mockFetch = jest.fn(() =>
 		Promise.resolve({
 			ok: true,
-			json: () => Promise.resolve(podcastListResponseMock as unknown as Response),
+			json: () =>
+				Promise.resolve({
+					contents: JSON.stringify(podcastListResponseMock),
+				} as unknown as Response),
 		})
 	) as unknown as GlobalFetch
 

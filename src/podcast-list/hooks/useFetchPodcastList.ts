@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import {
-	BASE_RAW_URL,
+	BASE_URL,
 	hasMoreTimePassedSinceThisDate,
 	PODCAST_LIST_LOCAL_STORAGE_KEY,
 	PODCAST_LIST_URL,
@@ -9,6 +9,10 @@ import {
 	useLoadingStore,
 } from '../../shared'
 import { PodcastEntry, PodcastListResponse } from '../types/podcast-list'
+
+type AllOriginsGetResponse = {
+	contents: string
+}
 
 export const useFetchPodcastList = () => {
 	const [podcastListValueInLocaleStorage, setPodcastListValueInLocaleStorage] =
@@ -25,6 +29,9 @@ export const useFetchPodcastList = () => {
 
 	useEffect(() => {
 		loadingData()
+		const abortController = new AbortController()
+		const timeoutId = window.setTimeout(() => abortController.abort(), 20000)
+
 		let shouldRefetch = false
 		if (podcastListValueInLocaleStorage) {
 			shouldRefetch = hasMoreTimePassedSinceThisDate({
@@ -33,6 +40,7 @@ export const useFetchPodcastList = () => {
 				passedTime: 1,
 			})
 			if (!shouldRefetch) {
+				window.clearTimeout(timeoutId)
 				finishLoadingData()
 				setIsLoading(false)
 				setData(podcastListValueInLocaleStorage.list)
@@ -40,15 +48,17 @@ export const useFetchPodcastList = () => {
 			}
 		}
 
-		fetch(`${BASE_RAW_URL}${encodeURIComponent(PODCAST_LIST_URL)}`)
+		const podcastListToFetchUrl = encodeURIComponent(PODCAST_LIST_URL)
+		fetch(`${BASE_URL}${podcastListToFetchUrl}`, { signal: abortController.signal })
 			.then((response) => {
 				if (!response.ok) {
 					throw Error('could not fetch the data for that resource')
 				}
 				return response.json()
 			})
-			.then((data: PodcastListResponse) => {
-				const list = data.feed.entry
+			.then((data: AllOriginsGetResponse) => {
+				const raw = JSON.parse(data.contents) as PodcastListResponse
+				const list = raw.feed.entry
 				setData(list)
 				setError(null)
 				setPodcastListValueInLocaleStorage({
@@ -58,9 +68,10 @@ export const useFetchPodcastList = () => {
 			})
 			.catch((err) => {
 				console.log('🦊 err', err)
-				setError(err.message)
+				setError(err?.name === 'AbortError' ? 'request timed out' : err.message)
 			})
 			.finally(() => {
+				window.clearTimeout(timeoutId)
 				finishLoadingData()
 				setIsLoading(false)
 			})
