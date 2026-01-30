@@ -40,7 +40,7 @@ export const useFetchPodcastList = () => {
 			}
 		}
 
-		fetch(`${BASE_RAW_URL}${PODCAST_LIST_URL}`)
+		fetch(`${BASE_RAW_URL}${encodeURIComponent(PODCAST_LIST_URL)}`)
 			.then((response) => {
 				if (!response.ok) {
 					throw Error('could not fetch the data for that resource')

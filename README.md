@@ -58,3 +58,7 @@ To get started with the Podcaster app, follow these steps:
 2. `cd podcaster`
 3. `npm install`
 4. `npm run dev`
+
+## Notes about CORS in production
+
+The iTunes RSS/lookup endpoints don't reliably include CORS headers for browser requests. For that reason the app fetches data through `api.allorigins.win` (public CORS proxy) so it works both locally and when deployed (e.g. GitHub Pages).
