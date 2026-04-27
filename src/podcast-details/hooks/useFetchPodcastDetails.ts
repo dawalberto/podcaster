@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
-	BASE_URL,
 	hasMoreTimePassedSinceThisDate,
 	PODCAST_DETAILS_URL,
 	PodcastDetailsLocalStorage,
@@ -10,16 +9,13 @@ import {
 import {
 	PodcastDetails,
 	PodcastDetailsData,
-	PodcastDetailsResponse,
 	PodcastEpisode,
 } from '../types/podcast-details'
 import { useDetailsDataInLocalStorage } from './useDetailsDataInLocalStorage'
 
 export const useFetchPodcastDetails = () => {
 	const { podcastId } = useParams<{ podcastId: string }>()
-	const podcastToFetchUrl = encodeURIComponent(
-		`${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`
-	)
+	const podcastUrl = `${PODCAST_DETAILS_URL}?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`
 	const { data: dataInLS, setData: setDataInLS } = useDetailsDataInLocalStorage()
 	const [data, setData] = useState<Omit<PodcastDetailsLocalStorage, 'lastFetch'> | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
@@ -51,16 +47,14 @@ export const useFetchPodcastDetails = () => {
 			}
 		}
 
-		fetch(BASE_URL + podcastToFetchUrl)
+		fetch(podcastUrl)
 			.then((response) => {
 				if (!response.ok) {
 					throw Error('could not fetch the data for that resource')
 				}
-				return response.json()
+				return response.json() as Promise<PodcastDetailsData>
 			})
-			.then((data: PodcastDetailsResponse) => {
-				// allorigins.win/get devuelve los datos en data.contents como string
-				const podcastAndEpisodes = JSON.parse(data.contents) as PodcastDetailsData
+			.then((podcastAndEpisodes) => {
 				const podcastDetails = podcastAndEpisodes.results.find(
 					({ wrapperType }) => wrapperType === 'track'
 				) as PodcastDetails

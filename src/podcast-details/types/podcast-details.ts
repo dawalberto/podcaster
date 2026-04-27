@@ -1,14 +1,3 @@
-export type PodcastDetailsResponse = {
-	contents: string
-	status: {
-		url: string
-		content_type: string
-		http_code: number
-		response_time: number
-		content_length: number
-	}
-}
-
 export type PodcastDetailsData = {
 	resultCount: number
 	results: PodcastAndEpisodes

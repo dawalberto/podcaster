@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import {
-	BASE_URL,
 	hasMoreTimePassedSinceThisDate,
 	PODCAST_LIST_LOCAL_STORAGE_KEY,
 	PODCAST_LIST_URL,
@@ -9,10 +8,6 @@ import {
 	useLoadingStore,
 } from '../../shared'
 import { PodcastEntry, PodcastListResponse } from '../types/podcast-list'
-
-type AllOriginsGetResponse = {
-	contents: string
-}
 
 export const useFetchPodcastList = () => {
 	const [podcastListValueInLocaleStorage, setPodcastListValueInLocaleStorage] =
@@ -48,17 +43,15 @@ export const useFetchPodcastList = () => {
 			}
 		}
 
-		const podcastListToFetchUrl = encodeURIComponent(PODCAST_LIST_URL)
-		fetch(`${BASE_URL}${podcastListToFetchUrl}`, { signal: abortController.signal })
+		fetch(PODCAST_LIST_URL, { signal: abortController.signal })
 			.then((response) => {
 				if (!response.ok) {
 					throw Error('could not fetch the data for that resource')
 				}
-				return response.json()
+				return response.json() as Promise<PodcastListResponse>
 			})
-			.then((data: AllOriginsGetResponse) => {
-				const raw = JSON.parse(data.contents) as PodcastListResponse
-				const list = raw.feed.entry
+			.then((data) => {
+				const list = data.feed.entry
 				setData(list)
 				setError(null)
 				setPodcastListValueInLocaleStorage({
