@@ -36,9 +36,7 @@ describe('useFetchPodcastList', () => {
 			ok: true,
 			json: () =>
 				Promise.resolve({
-					contents: JSON.stringify({
-						feed: { entry: [{ id: { attributes: { 'im:id': '123' } } }] },
-					}),
+					feed: { entry: [{ id: { attributes: { 'im:id': '123' } } }] },
 				} as unknown as Response),
 		})
 	) as unknown as GlobalFetch

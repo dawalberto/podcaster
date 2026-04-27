@@ -66,19 +66,15 @@ describe('Full flow', () => {
 			],
 		}
 
-		cy.intercept('GET', /https:\/\/api\.allorigins\.win\/get\?url=.*toppodcasts.*json/i, {
+		cy.intercept('GET', /https:\/\/itunes\.apple\.com\/.*toppodcasts.*json/i, {
 			statusCode: 200,
-			body: { contents: JSON.stringify(podcastList) },
+			body: podcastList,
 		}).as('fetchData')
 
-		cy.intercept(
-			'GET',
-			/https:\/\/api\.allorigins\.win\/get\?url=.*itunes\.apple\.com.*lookup.*/i,
-			{
-				statusCode: 200,
-				body: { contents: JSON.stringify(podcastDetails) },
-			}
-		).as('fetchDataDetails')
+		cy.intercept('GET', /https:\/\/itunes\.apple\.com\/lookup.*/i, {
+			statusCode: 200,
+			body: podcastDetails,
+		}).as('fetchDataDetails')
 
 		cy.visit('http://localhost:5173/podcaster/', {
 			onBeforeLoad(win) {
