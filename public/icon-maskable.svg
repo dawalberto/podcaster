@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="55%" stop-color="#0b1437"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#6366f1" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0b1437" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="capsule" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a5f3fc"/>
+      <stop offset="45%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0.85"/>
+    </linearGradient>
+    <pattern id="grid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#22d3ee" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <filter id="neon" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Full-bleed background (no rounded corners — host platform masks) -->
+  <rect x="0" y="0" width="512" height="512" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" fill="url(#grid)"/>
+  <rect x="0" y="0" width="512" height="512" fill="url(#glow)"/>
+
+  <!-- Halo -->
+  <circle cx="256" cy="246" r="110" fill="#22d3ee" fill-opacity="0.18" filter="url(#neon)"/>
+
+  <!-- Mic graphic scaled into the inner ~80% safe zone (translate + scale 0.78 around 256,256) -->
+  <g transform="translate(256 256) scale(0.78) translate(-256 -256)">
+    <rect x="190" y="84" width="132" height="240" rx="66" ry="66" fill="#22d3ee" fill-opacity="0.18" filter="url(#neon)"/>
+    <rect x="198" y="92" width="116" height="224" rx="58" ry="58" fill="url(#capsule)"/>
+    <rect x="198" y="92" width="116" height="224" rx="58" ry="58" fill="none" stroke="url(#stroke)" stroke-width="3"/>
+
+    <g stroke="#0b1437" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round">
+      <line x1="220" y1="148" x2="292" y2="148"/>
+      <line x1="220" y1="180" x2="292" y2="180"/>
+      <line x1="220" y1="212" x2="292" y2="212"/>
+      <line x1="220" y1="244" x2="292" y2="244"/>
+      <line x1="220" y1="276" x2="292" y2="276"/>
+    </g>
+
+    <circle cx="206" cy="204" r="4" fill="#0b1437" fill-opacity="0.7"/>
+    <circle cx="306" cy="204" r="4" fill="#0b1437" fill-opacity="0.7"/>
+
+    <path d="M132 232 V272 C132 340 188 396 256 396 C324 396 380 340 380 272 V232"
+          fill="none" stroke="url(#stroke)" stroke-width="14" stroke-linecap="round"/>
+    <rect x="246" y="396" width="20" height="44" rx="6" fill="url(#stroke)"/>
+    <rect x="180" y="436" width="152" height="18" rx="9" fill="url(#stroke)"/>
+  </g>
+</svg>
