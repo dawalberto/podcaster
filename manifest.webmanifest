@@ -1,0 +1,48 @@
+{
+	"name": "Podcaster",
+	"short_name": "Podcaster",
+	"description": "Stream, browse and discover the 100 most popular podcasts in one sleek, futurist listening experience.",
+	"id": "/podcaster/",
+	"start_url": "/podcaster/",
+	"scope": "/podcaster/",
+	"display": "standalone",
+	"display_override": ["standalone", "minimal-ui", "browser"],
+	"orientation": "portrait",
+	"background_color": "#020617",
+	"theme_color": "#020617",
+	"lang": "en",
+	"dir": "ltr",
+	"categories": ["music", "entertainment", "news"],
+	"icons": [
+		{
+			"src": "icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "icon-maskable-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "icon-maskable-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}
